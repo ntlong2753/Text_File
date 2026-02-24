@@ -1,14 +1,17 @@
 package Ex1;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Locale;
 import java.util.Scanner;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
+        System.out.print("Nhap duong dan file: ");
+        Scanner sc = new Scanner(System.in);
+        String path = sc.nextLine();
+
+        ReadFileExample readFileEx = new ReadFileExample();
+        readFileEx.readFileText(path);
+
+        /* ...
         File file = new File("data/number.txt");
         int sum;
         String line = "";
@@ -31,5 +34,6 @@ public class main {
         catch (Exception e) {
             System.err.println("Fie không tồn tại hoặc nội dung có lỗi!");
         }
+        ... */
     }
 }
