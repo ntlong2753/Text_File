@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 
 public class App {
     public static void main(String[] args) {
-        File myFile = new File("data/myFile.txt");
+        File myFile = new File("number.txt");
         System.out.println(myFile.exists());
 
         // 1. Tạo một đối tượng File đại diện cho một file đang tồn tại:
