@@ -1,29 +1,29 @@
-package Ex2;
+package ReadWriteMax;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ReadAndWriteFile {
     public List<Integer> readFile(String filePath) {
         List<Integer> numbers = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try {
             File file = new File(filePath);
-            if(!file.exists()){
+            if (!file.exists()) {
                 throw new FileNotFoundException();
             }
+
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String line = "";
-            while ((line= br.readLine()) != null) {
-                if(line.matches("\\d+")){
-                    numbers.add(Integer.parseInt(line));
-                    // thieu bo qua cac chu nen nhung file co ky tu khong se gay ra loi
-                }else{
-                    System.out.println("Skip :" +line);
+            while ((line = br.readLine()) != null) {
+                try {
+                    numbers.add(Integer.parseInt(line.trim()));
                 }
-
+                catch (NumberFormatException e) {
+                    System.err.println(line + ": ko phai so");
+                }
             }
-
+            br.close();
         }
         catch (Exception e) {
             System.err.println("Fie không tồn tại or nội dung có lỗi!");
@@ -31,24 +31,24 @@ public class ReadAndWriteFile {
         return numbers;
     }
 
-    public void writeFile(String filePath, int max) {
+    public void writeFile(String filePath, int max){
         try {
-            FileWriter writer = new FileWriter(filePath);
+            FileWriter writer = new FileWriter(filePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
             bufferedWriter.write("Giá trị lớn nhất là: " + max);
+            bufferedWriter.write("\n");
             bufferedWriter.close();
-        } 
-        catch (IOException e) {
+        } catch (IOException e) {
+            //System.err.println("abc " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     public static int findMax(List<Integer> numbers) {
         int max = numbers.get(0);
-        // dung for each thang ngu
-        for (int num :numbers) {
-            if (num >max) {
-                max = num;
+        for (int i = 0; i < numbers.size(); i++) {
+            if (max < numbers.get(i)) {
+                max = numbers.get(i);
             }
         }
         return max;
